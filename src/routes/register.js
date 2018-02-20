@@ -5,7 +5,7 @@ const db = mongojs('chatapp', ['users']);
 const bcrypt = require('bcryptjs');
 const passport = require('passport');
 
-// router used for '/register'
+// Router used for '/register'
 
 router.get('/', (req, res) => {
   if (req.isAuthenticated()) {
@@ -63,7 +63,6 @@ router.post('/', (req, res) => {
           req.flash('success', 'Successfully registered');
 
           // Redirect after registration
-          res.location('/'); //TODO test if neccessary
           res.redirect('/');
         });
       });

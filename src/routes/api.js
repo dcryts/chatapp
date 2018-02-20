@@ -3,10 +3,10 @@ const router = express.Router();
 
 router.get('/user_data', (req, res) => {
   if (req.isAuthenticated()) {
-    // get data from req
+    // Get data from req
     const username = req.user.username;
 
-    // construct user object with all appropriate data
+    // Construct user object with all appropriate data
     const userObj = {
       username: username
     };

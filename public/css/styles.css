@@ -63,9 +63,14 @@ li.message {
 
 .msg-time {
   display: inline-block;
-  width: 12%;
+  width: 63px;
   color: #aaa;
   font-size: 12px;
+}
+@media (max-width: 800px){
+  .msg-time {
+    display: none;
+  }
 }
 
 .msg-username-current {
@@ -224,6 +229,7 @@ form input:last-of-type:focus {
 
 .btn-light {
   background-color: #ededed;
+  color: #888;
 }
 
 .margin-left {

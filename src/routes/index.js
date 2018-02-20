@@ -15,7 +15,7 @@ let returnRouter = function (io) {
 
   // Posting a message
   router.post('/', (req, res) => {
-    console.log(`Server POST req received`); //from ${req.user.username}`);
+    console.log(`Server POST req received`);
 
     if (!req.isAuthenticated()) {
       res.redirect('/login');

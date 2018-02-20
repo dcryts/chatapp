@@ -21,10 +21,8 @@ $(document).ready(function() {
   });
   // Finalize connection on client side
   socket.on('connectionEstablished', (users) => {
-    console.log(users);
     // Update users
     connectedUsers = connectedUsers.concat(Object.keys(users));
-    console.log(connectedUsers);
     appendConnectedUsers(connectedUsers);
     // Notify via chat
     appendMessage('<li class="message"><span class="server-message">Connected to chat</span></li>');
@@ -77,7 +75,7 @@ $(document).ready(function() {
     msgObj.username = clientUsername;
     msgObj.msg = $('#chat-area').val();
     msgObj.date = Date.now();
-    msgObj.msg = msgObj.msg.replace(/^\s+|\s+$/, '');        ///^\s+|\s+$/gm,'');
+    msgObj.msg = msgObj.msg.replace(/^\s+|\s+$/, '');
     if (msgObj.msg !== null && msgObj.msg !== '') {
       // Actually send message
       socket.emit('msg', msgObj);
@@ -107,7 +105,8 @@ $(document).ready(function() {
     let hours = ('0'+date.getHours()).slice(-2);
     let minutes = ('0'+date.getMinutes()).slice(-2);
     let seconds = ('0'+date.getSeconds()).slice(-2);
-    let message = `<li class="message"><span class="msg-time">(${hours}:${minutes}:${seconds})</span><span class="msg-username">${msgObj.username}: </span><span class="msg-message">${msgObj.msg}</span></li>`;
+    let usernameClass = (msgObj.username === clientUsername) ? 'msg-username-current' : 'msg-username';
+    let message = `<li class="message"><span class="msg-time">(${hours}:${minutes}:${seconds})</span><span class=${usernameClass}>${msgObj.username}: </span><span class="msg-message">${msgObj.msg}</span></li>`;
     return message;
   }
 
@@ -125,7 +124,8 @@ $(document).ready(function() {
   }
 
   function appendConnectedUser(username) {
-    $('ul.user-list').append(`<li id="${username}" class="user"><span class="msg-username">${username}</span></li>`);
+    let usernameClass = (username === clientUsername) ? 'msg-username-current' : 'msg-username';
+    $('ul.user-list').append(`<li id="${username}" class="user"><span class=${usernameClass}>${username}</span></li>`);
   }
 
   function deleteConnectedUser(username) {

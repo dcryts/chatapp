@@ -7,10 +7,11 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const flash = require('connect-flash');
 
+const PORT = process.env.PORT || 3000;
+
 const app = express();
 // Listen
-const server = app.listen(3000, () => { console.log(`App started.`); });
-// const io = require('socket.io')(server);
+const server = app.listen(PORT, () => { console.log(`App started.`); });
 const io = require('./src/controllers/socketController')(server);
 
 // Routes
@@ -29,7 +30,6 @@ app.set('view engine', 'ejs');
 // Static
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/socket', express.static(path.join('node_modules', 'socket.io-client', 'dist')));
-
 
 // body-parser: handles http POST request under req.body
 app.use(bodyParser.json());
@@ -65,15 +65,8 @@ app.use((req, res, next) => {
   next();
 });
 
-app.get('*', (req, res, next) => {
-  res.locals.user = req.user || null;
-  next();
-});
-
 // Routes
 app.use('/', index);
 app.use('/login', login);
 app.use('/register', register)
 app.use('/api', api);
-// // Listen (NOW CALLED ABOVE FOR 'socket.io')
-// app.listen(3000, () => {console.log(`App started.`)});

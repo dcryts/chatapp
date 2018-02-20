@@ -83,18 +83,18 @@ $(document).ready(function() {
       // Display own message on cliet
       appendMessage(formatHTMLMessage(msgObj));
 
-      // // Post for logging
-      // $.ajax({
-      //   url: '/',
-      //   type: 'POST',
-      //   data: msgObj,
-      //   success: (res, status, jqXHR) => {
-      //     console.log(`Post Status: ${status}`);
-      //   },
-      //   error: (jqXHR, status, err) => {
-      //     console.log(`Post Error: ${err}`);
-      //   },
-      // });
+      // Post for logging chat to DB
+      $.ajax({
+        url: '/',
+        type: 'POST',
+        data: msgObj,
+        success: (res, status, jqXHR) => {
+          console.log(`Post Status: ${status}`);
+        },
+        error: (jqXHR, status, err) => {
+          console.log(`Post Error: ${err}`);
+        },
+      });
     }
 
     // Clear textarea and focus

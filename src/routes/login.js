@@ -1,12 +1,12 @@
 const express = require('express');
 const router = express.Router();
 const mongojs = require('mongojs');
-const db = mongojs('chatapp', ['users']); // :
+const db = mongojs('chatapp', ['users']);
 const bcrypt = require('bcryptjs');
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 
-// router used for '/login'
+// Router used for '/login'
 
 router.get('/', (req, res) => {
   if (req.isAuthenticated()) {
@@ -17,9 +17,6 @@ router.get('/', (req, res) => {
 });
 
 router.get('/logout', (req, res) => {
-  // req.logout();
-  // req.flash('success', 'Bye!');
-  // res.redirect('/login');
   req.logout();
   req.session.destroy((err) => {
     res.redirect('/login');
@@ -38,7 +35,7 @@ passport.deserializeUser((id, done) => {
   });
 });
 
-// use local strat
+// Use local strat
 passport.use(new LocalStrategy(
   function (username, password, done) {
     db.users.findOne({username: username},
@@ -66,7 +63,7 @@ passport.use(new LocalStrategy(
   }
 ));
 
-// upon a POST request to '/login', authenticate
+// Upon a POST request to '/login' -> authenticate
 router.post('/', passport.authenticate('local', {
                                                         successRedirect: '/',
                                                         failureRedirect: '/login',

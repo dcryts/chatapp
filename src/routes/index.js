@@ -1,5 +1,3 @@
-
-
 let returnRouter = function (io) {
   const express = require('express');
   const router = express.Router();
@@ -15,44 +13,23 @@ let returnRouter = function (io) {
     }
   });
 
-  // TODO somewhere... manage how many messages db stores
   router.post('/', (req, res) => {
     console.log(`Server POST req received from ${req.user.username}`);
-    // console.log(io);
-    // io.sockets.emit('msg', { body: req.body });
 
-
-    // console.log(`req.body:`);
-    // console.log(req.body);
-    // res.end();
-
-    //TODO post to db
     if (!req.isAuthenticated()) {
       res.redirect('/login');
     }
 
-    // if (req.isAuthenticated()) {
-    //   console.log('Message posting...');
-    //   const msg = req.body['chat-message'];
-    //   const user = req.user.username;
-    //
-    //   const msgObj = {
-    //     user: req.user.username,
-    //     date: null,
-    //     msg: msg
-    //   };
-    //   if (msg !== null && msg !== '') {
-    //     db.chatlog.insert(msgObj, (error, doc) => {
-    //       if (error) {
-    //         res.send(error);
-    //       }
-    //       console.log(`${msgObj.user} sent '${msgObj.msg}' at ${msgObj.date}`);
-    //       res.end(200);
-    //     });
-    //   }
-    // }
-    // res.redirect('/login');
-    res.end();
+    console.log('Message posting...');
+    const msgObj = req.body;
+
+    db.chatlog.insert(msgObj, (error, doc) => {
+      if (error) {
+        res.send(error);
+      }
+      console.log(`${msgObj.user} sent '${msgObj.msg}' at ${msgObj.date}`);
+      res.end(200);
+    });
   });
 
   return router;

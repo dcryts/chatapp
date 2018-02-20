@@ -13,8 +13,9 @@ let returnRouter = function (io) {
     }
   });
 
+  // Posting a message
   router.post('/', (req, res) => {
-    console.log(`Server POST req received from ${req.user.username}`);
+    console.log(`Server POST req received`); //from ${req.user.username}`);
 
     if (!req.isAuthenticated()) {
       res.redirect('/login');
@@ -23,12 +24,13 @@ let returnRouter = function (io) {
     console.log('Message posting...');
     const msgObj = req.body;
 
+    // Store in db
     db.chatlog.insert(msgObj, (error, doc) => {
       if (error) {
         res.send(error);
       }
-      console.log(`${msgObj.user} sent '${msgObj.msg}' at ${msgObj.date}`);
-      res.end(200);
+      console.log(`${msgObj.username} sent '${msgObj.msg}' at ${msgObj.date}`);
+      res.send(200);
     });
   });
 

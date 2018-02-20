@@ -39,10 +39,11 @@ let returnRouter = function (io) {
   // Use local strat
   passport.use(new LocalStrategy(
     function (username, password, done) {
+      // Prevent users from logging in with same account at the same time
       if (io.connectedUsers.hasOwnProperty(username)) {
         return done(null, false, { message: 'Already logged in' });
       }
-
+      // Check if username is registered
       db.users.findOne({username: username},
         function (err, user) {
           if (err) {
@@ -51,7 +52,7 @@ let returnRouter = function (io) {
           if (!user) {
             return done(null, false, { message: 'Incorrect username' });
           }
-
+          // Check if password matches
           bcrypt.compare(password, user.password,
           function (err, isMatch) {
             if (err) {

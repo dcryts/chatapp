@@ -49,6 +49,12 @@ $(document).ready(function() {
     deleteConnectedUser(username);
     appendMessage(`<li class="message"><span class="server-message">${username} disconnected from chat</span></li>`);
   });
+  // Disconnect from server
+  socket.on('disconnect', () => {
+    // If socket disconnects, redirect to login page
+    // Look to handle reconnecting more seamlessly from minor disconnect
+    window.location.replace(window.location.href + 'login');
+  });
 
   // Send message controls
   $('#chat-send').click(sendMessage);
@@ -60,13 +66,8 @@ $(document).ready(function() {
   });
   // Logout control
   $('#chat-logout').click( () => {
-    $.ajax({
-      url: '/login/logout',
-      type: 'GET',
-      success: (success, error) => {
-        console.log('logout');
-      },
-    });
+    // Redirect page from client side to logout
+    window.location.replace(window.location.href + 'login/logout');
   });
 
   // Send logic
@@ -76,7 +77,7 @@ $(document).ready(function() {
     msgObj.username = clientUsername;
     msgObj.msg = $('#chat-area').val();
     msgObj.date = Date.now();
-    msgObj.msg = msgObj.msg.replace(/^\s+|\s+$/gm,'');
+    msgObj.msg = msgObj.msg.replace(/^\s+|\s+$/, '');        ///^\s+|\s+$/gm,'');
     if (msgObj.msg !== null && msgObj.msg !== '') {
       // Actually send message
       socket.emit('msg', msgObj);

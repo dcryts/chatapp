@@ -1,0 +1,21 @@
+<%- include('includes/header') %>
+
+<script src="/js/login.js"></script>
+
+<div class="container login-page">
+  <form class="form-login" method="post" action="login">
+    <h1 class="form-login-header text-center">Sign in to chat!</h1>
+    <label class="sr-only">Username</label>
+    <input type="text" name="username" class="form-control" placeholder="Username" autofocus>
+    <label class="sr-only">Password</label>
+    <input type="password" name="password" class="form-control" placeholder="Password">
+    <span>
+      <button class="btn btn-success margin-right" type="submit">Sign in</button>
+      or <a href="/register" class="btn btn-light margin-left">Register</a>
+    </span>
+
+    <%- messages() %>
+  </form>
+</div>
+
+<%- include('includes/footer') %>

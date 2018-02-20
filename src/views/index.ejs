@@ -1,0 +1,28 @@
+<%- include('includes/header') %>
+<script src="/socket/socket.io.js"></script>
+<script src="/js/index.js"></script>
+
+<div class="container chat-page">
+  <div class="chat-main">
+    <div class="chat-log-wrap">
+      <ul class="chat-log"></ul>
+    </div>
+    <div class="chat-panel">
+      <div class="text-wrap"><textarea id="chat-area" maxlength="250" name="chat-message"></textarea></div>
+      <button id="chat-send" class="btn btn-success btn-xs">Send</button>
+    </div>
+  </div>
+
+  <div class="chat-helper">
+    <h5 class="user-list-header">Online</h5>
+    <div class="user-list-wrap">
+      <ul class="user-list">
+
+      </ul>
+    </div>
+    <button id="chat-logout" class="btn btn-light">Logout</button>
+  </div>
+
+</div>
+
+<%- include('includes/footer') %>

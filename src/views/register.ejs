@@ -1,0 +1,27 @@
+<%- include('includes/header') %>
+
+<div class="container register-page">
+  <form class="form-register" method="post" action="register">
+    <h1 class="form-register-header text-center">Register for chat!</h1>
+    <label class="sr-only">Username</label>
+    <input type="text" name="username" class="form-control" placeholder="Username" autofocus>
+    <label class="sr-only">Password</label>
+    <input type="password" name="password" class="form-control" placeholder="Password">
+    <label class="sr-only">Retype Password</label>
+    <input type="password" name="password2" class="form-control" placeholder="Retype Password">
+    <span>
+      <button class="btn btn-success margin-right" type="submit">Register</button>
+      or <a href="/login" class="btn btn-light margin-left">Login</a>
+    </span>
+
+    <% if (locals.errors) {%>
+      <% errors.forEach(function(error) { %>
+        <div class="alert alert-danger">
+          <%= error.msg %>
+        </div>
+      <% }); %>
+    <% } %>
+  </form>
+</div>
+
+<%- include('includes/footer') %>

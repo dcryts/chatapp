@@ -3,7 +3,7 @@ module.exports = function(server) {
   const io = require('socket.io')(server);
 
   // Store objects in both directions for easier two way lookup
-  let connectedUsers = {};
+  let connectedUsers = io.connectedUsers = {};
   let connectedSockets = {};
 
   io.on('connection', (socket) => {

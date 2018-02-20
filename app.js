@@ -16,7 +16,7 @@ const io = require('./src/controllers/socketController')(server);
 
 // Routes
 const index = require('./src/routes/index')(io);
-const login = require('./src/routes/login');
+const login = require('./src/routes/login')(io);
 const register = require('./src/routes/register');
 const api = require('./src/routes/api');
 
